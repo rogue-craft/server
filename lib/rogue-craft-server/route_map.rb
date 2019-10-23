@@ -19,7 +19,8 @@ class RouteMap
         schema: {
           login: Schema::Login.new,
           registration: Schema::Registration.new,
-          activation: Schema::Acivation.new
+          activation: Schema::Acivation.new,
+          logout: Schema::Logout.new
         }
       }
     }

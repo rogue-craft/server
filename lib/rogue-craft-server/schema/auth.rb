@@ -30,3 +30,6 @@ class Schema::Acivation < Dry::Validation::Contract
     required(:activation_code).value(size?: Handler::Auth::ACTIVATION_CODE_LENGTH * 2)
   end
 end
+
+class Schema::Logout < Dry::Validation::Contract
+end
