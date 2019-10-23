@@ -17,7 +17,7 @@ class Handler::Auth < RPC::InjectedHandler
       token: nil
     )
 
-    Resque.enqueue(Job::Email, :activation, player.email, {code: player.activation_code})
+    Resque.enqueue(Job::Email, :activation, player.email, {activation_code: player.activation_code})
 
     @logger.info("Player #{player.id} registered")
 

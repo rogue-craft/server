@@ -23,7 +23,7 @@ class RegistrationTest < MiniTest::Test
     end
       .returns(created_player)
 
-    Resque.expects(:enqueue).with(Job::Email, :activation, created_player.email, {code: created_player.activation_code})
+    Resque.expects(:enqueue).with(Job::Email, :activation, created_player.email, {activation_code: created_player.activation_code})
 
     logger = mock
     logger.expects(:info).with("Player #{10} registered")
