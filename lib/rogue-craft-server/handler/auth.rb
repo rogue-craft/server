@@ -17,6 +17,8 @@ class Handler::Auth < RPC::InjectedHandler
       token: nil
     )
 
+    Resque.enqueue(Job::Email, :activation, player.email, {code: player.activation_code})
+
     @logger.info("Player #{player.id} registered")
 
     new_msg(parent: msg)
@@ -43,6 +45,12 @@ class Handler::Auth < RPC::InjectedHandler
     end
 
     new_msg(parent: msg, params: {token: player.token})
+  end
+
+  def logout(msg, player)
+    player.update(token: nil)
+
+    new_msg(parent: msg)
   end
 
   def activation(msg, _)

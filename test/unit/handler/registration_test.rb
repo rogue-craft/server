@@ -11,7 +11,7 @@ class RegistrationTest < MiniTest::Test
     }
     msg = RPC::Message.from(params: msg_params)
 
-    created_player = OpenStruct.new(id: 10)
+    created_player = OpenStruct.new(id: 10, email: msg_params[:email], activation_code: 'code2')
 
     Model::Player.expects(:create).with do |params|
       assert_equal(msg_params[:nickname], params[:nickname])
@@ -22,6 +22,8 @@ class RegistrationTest < MiniTest::Test
       assert(BCrypt::Password.new(params[:password]) == params[:salt] + msg_params[:password])
     end
       .returns(created_player)
+
+    Resque.expects(:enqueue).with(Job::Email, :activation, created_player.email, {code: created_player.activation_code})
 
     logger = mock
     logger.expects(:info).with("Player #{10} registered")

@@ -7,9 +7,9 @@ class Server::Router < RPC::Router
 
   def call_handler(handler, action, message)
     begin
-        player = @firewall.identify(handler, message)
+      player = @firewall.identify(handler, message)
     rescue Server::FireWall::AccesDenied
-        return RPC::Message.from(code: RPC::Code::ACCESS_DENIED)
+      return RPC::Message.from(code: RPC::Code::ACCESS_DENIED)
     end
 
     ctx = {player: player}

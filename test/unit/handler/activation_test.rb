@@ -35,4 +35,3 @@ class ActivationTest < MiniTest::Test
     assert_equal(msg.id, response.parent)
   end
 end
-

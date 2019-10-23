@@ -77,8 +77,17 @@ class ContainerLoader
   end
 
   def self.init_mailer
+    options = {
+      address: ENV['MAIL_SERVER'],
+      port: ENV['MAIL_PORT'],
+      user_name: ENV['MAIL_USER'],
+      password: ENV['MAIL_PASSWORD'],
+      authentication: 'plain',
+      enable_starttls_auto: true
+    }
+
     Mail.defaults do
-      delivery_method :sendmail, location: ENV['SENDMAIL_LOCATION']
+      delivery_method :smtp, options
     end
   end
 end
