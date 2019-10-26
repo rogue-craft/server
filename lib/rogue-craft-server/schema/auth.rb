@@ -32,4 +32,6 @@ class Schema::Acivation < Dry::Validation::Contract
 end
 
 class Schema::Logout < Dry::Validation::Contract
+  params do
+  end
 end
