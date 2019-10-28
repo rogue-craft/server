@@ -17,4 +17,8 @@ class Model::Player < Model::BaseModel
 
   attribute :password
   attribute :salt
+
+  def token_expired?
+    Time.now >= token_expiration
+  end
 end

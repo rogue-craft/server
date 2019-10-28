@@ -29,7 +29,7 @@ class Job::Email < Job::BaseJob
   def body_of(type, params)
     case type
     when 'activation'
-      "Activation code: #{params[:activation_code]}"
+      "Activation code: #{params['activation_code']}"
     else
       raise ArgumentError.new("Unkown email type #{type}")
     end
