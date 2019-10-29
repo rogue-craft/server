@@ -71,9 +71,8 @@ class ContainerLoader
     c[:router] = -> { Server::Router.new(RouteMap.new.load, c[:logger], c[:firewall]) }
     c[:serializer] = -> { RPC::Serializer.new(c.resolve(:logger)) }
     c[:async_store] = -> { RPC::AsyncStore.new(ENV['RESPONSE_TIMEOUT'], c[:logger]) }
-    c[:default_connection] = -> { nil }
     c[:auth_handler] = -> { Handler::Auth.new }
-    c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], c[:default_connection]) }
+    c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], nil) }
   end
 
   def self.init_mailer
