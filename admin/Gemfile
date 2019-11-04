@@ -28,6 +28,7 @@ gem "ohm-validations"
 
 # Padrino Stable Gem
 gem 'padrino', '0.14.4'
+gem  "dotenv", "~> 2.6"
 
 # Or Padrino Edge
 # gem 'padrino', :github => 'padrino/padrino-framework'

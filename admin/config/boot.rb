@@ -8,6 +8,10 @@ Bundler.require(:default, RACK_ENV)
 
 require_relative '../../lib/rogue-craft-server/model/model.rb'
 
+require 'dotenv'
+
+Dotenv.load
+
 ##
 # ## Enable devel logging
 #
