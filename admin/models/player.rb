@@ -1,0 +1,1 @@
+/home/farkasvolgyi.istvan/RubymineProjects/rogue-craft/server/lib/rogue-craft-server/model/player.rb
