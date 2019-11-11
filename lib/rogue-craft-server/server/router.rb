@@ -9,7 +9,7 @@ class Server::Router < RPC::Router
     begin
       player = @firewall.identify(handler, message)
     rescue Server::FireWall::AccesDenied
-      return RPC::Message.from(code: RPC::Code::ACCESS_DENIED)
+      return RPC::Message.from(code: RPC::Code::ACCESS_DENIED, parent: message.id)
     end
 
     ctx = {player: player}

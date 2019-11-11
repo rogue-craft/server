@@ -73,6 +73,7 @@ class ContainerLoader
     c[:serializer] = -> { RPC::Serializer.new(c.resolve(:logger)) }
     c[:async_store] = -> { RPC::AsyncStore.new(ENV['RESPONSE_TIMEOUT'], c[:logger]) }
     c[:auth_handler] = -> { Handler::Auth.new }
+    c[:meta_handler] = -> { Handler::Meta.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], nil) }
   end
 

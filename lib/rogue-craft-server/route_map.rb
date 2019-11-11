@@ -10,17 +10,23 @@ class RouteMap
   USERNAME_PARAMS = {min_size?: 5, max_size?: 15, format?: FORMAT_USERNAME}
   PW_PARAMS = {min_size?: 5, max_size?: 30, format?: FORMAT_PW}
 
-  include Dependency[:auth_handler]
+  include Dependency[:auth_handler, :meta_handler]
 
   def load
     {
       auth: {
         handler: @auth_handler,
         schema: {
-          login: Schema::Login.new,
-          registration: Schema::Registration.new,
-          activation: Schema::Acivation.new,
-          logout: Schema::Logout.new
+          login: Schema::Auth::Login.new,
+          registration: Schema::Auth::Registration.new,
+          activation: Schema::Auth::Acivation.new,
+          logout: Schema::Auth::Logout.new
+        }
+      },
+      meta: {
+        handler: @meta_handler,
+        schema: {
+          validate_token: Schema::Meta::ValidateToken.new
         }
       }
     }

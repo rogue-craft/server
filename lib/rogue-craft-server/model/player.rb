@@ -1,5 +1,4 @@
 class Model::Player < Model::BaseModel
-  include Ohm::Validations
   include Ohm::SoftDelete
 
   attribute :nickname
