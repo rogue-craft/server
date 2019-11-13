@@ -1,5 +1,5 @@
 class Handler::Meta < RPC::InjectedHandler
-  def validate_token(msg, _)
+  def ping(msg, _)
     new_msg(parent: msg)
   end
 end

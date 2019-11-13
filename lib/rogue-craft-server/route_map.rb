@@ -26,7 +26,7 @@ class RouteMap
       meta: {
         handler: @meta_handler,
         schema: {
-          validate_token: Schema::Meta::ValidateToken.new
+          ping: Schema::Meta::Ping.new
         }
       }
     }
