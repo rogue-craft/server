@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 # Specify your gem's dependencies in rogue-craft-server.gemspec
 
-gem 'rogue-craft-common', "0.1.0"
+gem 'rogue-craft-common', "0.1.0", git: 'https://github.com/rogue-craft/common'
 
 gem  "dry-container", "~> 0.7.0"
 gem  "dry-auto_inject", "~> 0.6.0"
@@ -25,6 +25,9 @@ gem  "resque", "~> 2.0"
 
 gem  "padrino", "~> 0.14"
 
-gem  "rake", "~> 12.0"
-gem  "minitest", "~> 5.11"
-gem  "mocha", "~> 1.8"
+gem  "rake", "~> 12.0", group: :test
+gem  "minitest", "~> 5.11", group: :test
+gem  "mocha", "~> 1.8", group: :test
+
+gem  "codecov", "~> 0.1.16", group: :test
+gem  "simplecov", "~> 0.17", group: :test
