@@ -1,5 +1,1 @@
-sudo: false
-test:
-    - provider:
-      script: script
-      script: make test-docker-ruby-2.6
+script: make test-docker-ruby-2.6
