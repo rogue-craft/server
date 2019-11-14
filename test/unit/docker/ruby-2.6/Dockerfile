@@ -5,6 +5,6 @@ WORKDIR /app
 
 ADD Gemfile /app/
 
-RUN bundle install
+RUN bundle install --with test
 
 ADD . /app
