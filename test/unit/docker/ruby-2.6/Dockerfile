@@ -3,8 +3,8 @@ FROM ruby:2.6
 RUN mkdir /app
 WORKDIR /app
 
-ADD Gemfile /app/
+COPY Gemfile /app/
 
 RUN bundle install --with test
 
-ADD . /app
+COPY . /app

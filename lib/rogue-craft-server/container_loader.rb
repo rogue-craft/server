@@ -36,6 +36,7 @@ require_relative './handler/handler'
 require_relative './model/model'
 require_relative './event/event'
 require_relative './schema/schema'
+require_relative './world/world'
 require_relative './job/job'
 require_relative './route_map'
 

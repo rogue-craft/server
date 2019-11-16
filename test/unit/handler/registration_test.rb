@@ -26,7 +26,7 @@ class RegistrationTest < MiniTest::Test
     Resque.expects(:enqueue).with(Job::Email, :activation, created_player.email, {activation_code: created_player.activation_code})
 
     logger = mock
-    logger.expects(:info).with("Player #{10} registered")
+    logger.expects(:info).with("Player 10 registered")
     handler = Handler::Auth.new(logger: logger)
 
     handler.registration(msg, nil)
