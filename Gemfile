@@ -13,6 +13,8 @@ gem  "dry-events", "~> 0.1.0"
 gem  "eventmachine", "~> 1.2"
 gem  "dotenv", "~> 2.6"
 
+gem "concurrent-ruby", "~> 1.1.5"
+
 gem  "ohm", "~> 3.1.1"
 gem  "ohm-contrib", "~> 3"
 gem  "ohm-validations", "~> 1.0"

@@ -6,6 +6,7 @@ require 'ohm/validations'
 require 'dotenv'
 require 'bcrypt'
 require 'resque'
+require 'concurrent-ruby'
 
 Dotenv.load
 
