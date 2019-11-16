@@ -3,39 +3,52 @@ require_relative '../test'
 class SnapshotStreamTest < MiniTest::Test
 
   def test_stream
-    factory = mock
-    factory.expects(:create).with(10)
-    factory.expects(:create).with(20)
-
-    stream = World::SnapshotStream.new(snapshot_factory: factory)
-    stream.attach(10, :conn_10)
-    stream.attach(20, :conn_20)
-
-    stream.stream
+    run_test([1, 2]) do |stream|
+      stream.attach(1, :conn_1)
+      stream.attach(2, :conn_2)
+    end
   end
 
   def test_detach_player_id
-    factory = mock
-    factory.expects(:create).with(20)
+    run_test([2]) do |stream|
+      stream.attach(1, :conn_1)
+      stream.attach(2, :conn_2)
 
-    stream = World::SnapshotStream.new(snapshot_factory: factory)
-    stream.attach(10, :conn_10)
-    stream.attach(20, :conn_20)
-
-    stream.detach_player(10)
-
-    stream.stream
+      stream.detach_player(1)
+    end
   end
 
   def test_detach_connection
+    run_test([1]) do |stream|
+      stream.attach(1, :conn_1)
+      stream.attach(2, :conn_2)
+
+      stream.detach_connection(:conn_2)
+    end
+  end
+
+  private
+  def run_test(ids)
     factory = mock
-    factory.expects(:create).with(10)
 
-    stream = World::SnapshotStream.new(snapshot_factory: factory)
-    stream.attach(10, :conn_10)
-    stream.attach(20, :conn_20)
+    ids.each do |id|
+      factory.expects(:create).with(id).returns({snapshot: id})
+    end
 
-    stream.detach_connection(:conn_20)
+    sequence = ids.first
+
+    dispatcher = mock
+    dispatcher.expects(:dispatch).times(ids.count).yields.with do |msg, conn|
+      assert_equal('world/snapshot', msg.target)
+      assert_equal("conn_#{sequence}".to_sym, conn)
+      assert_equal({snapshot: sequence}, msg.params)
+
+      sequence += 1
+    end
+
+    stream = World::SnapshotStream.new(message_dispatcher: dispatcher, snapshot_factory: factory)
+
+    yield stream
 
     stream.stream
   end

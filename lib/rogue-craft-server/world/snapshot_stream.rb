@@ -1,4 +1,4 @@
-class World::SnapshotStream
+class World::SnapshotStream < RPC::InjectedHandler
 
   include Dependency[:snapshot_factory]
 
@@ -20,10 +20,12 @@ class World::SnapshotStream
   end
 
   def stream
-    @connection_map.each do |id, conn|
-      @snapshot_factory.create(id)
-
-      # send message
+    @connection_map.each do |player_id, conn|
+      send_msg(
+        conn: conn,
+        target: 'world/snapshot',
+        params: @snapshot_factory.create(player_id)
+      )
     end
   end
 end

@@ -60,6 +60,9 @@ class ContainerLoader
     redic.call('INFO')
 
     Ohm.redis = redic
+
+    c[:snapshot_stream] = -> { World::SnapshotStream.new }
+    c[:snapshot_factory] = -> { World::SnapshotFactory.new }
   end
 
   def self.logger
@@ -85,7 +88,6 @@ class ContainerLoader
       port: ENV['MAIL_PORT'],
       user_name: ENV['MAIL_USER'],
       password: ENV['MAIL_PASSWORD'],
-      authentication: 'plain',
       enable_starttls_auto: true
     }
 
