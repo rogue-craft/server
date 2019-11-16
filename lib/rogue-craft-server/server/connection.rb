@@ -1,6 +1,6 @@
 class Server::Connection < EventMachine::Connection
 
-  include Dependency[:event, :private_key, :cert_chain]
+  include Dependency[:event, :private_key, :cert_chain, :snapshot_stream]
 
   def post_init
     start_tls(private_key_file: @private_key, cert_chain_file: @cert_chain)
@@ -16,6 +16,10 @@ class Server::Connection < EventMachine::Connection
 
   def unbind
     p "unbind"
+
+    @snapshot_stream.detach_connection(self)
+
+    super
   end
 
   def receive_data(raw)
