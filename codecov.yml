@@ -1,2 +1,3 @@
 ignore:
     - "admin"
+    - "lib/rogue-craft-server/container_loader.rb"
