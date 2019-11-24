@@ -1,3 +1,4 @@
 ignore:
     - "admin"
     - "lib/rogue-craft-server/container_loader.rb"
+    - "lib/rogue-craft-server/route_map.rb"
