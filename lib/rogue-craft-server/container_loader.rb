@@ -63,6 +63,8 @@ class ContainerLoader
 
     c[:snapshot_stream] = -> { World::SnapshotStream.new }
     c[:snapshot_factory] = -> { World::SnapshotFactory.new }
+
+    c
   end
 
   def self.logger
@@ -79,6 +81,7 @@ class ContainerLoader
     c[:async_store] = -> { RPC::AsyncStore.new(ENV['RESPONSE_TIMEOUT'], c[:logger]) }
     c[:auth_handler] = -> { Handler::Auth.new }
     c[:meta_handler] = -> { Handler::Meta.new }
+    c[:world_handler] = -> { Handler::World.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], nil) }
   end
 

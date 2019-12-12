@@ -46,7 +46,7 @@ class SnapshotStreamTest < MiniTest::Test
       sequence += 1
     end
 
-    stream = World::SnapshotStream.new(message_dispatcher: dispatcher, snapshot_factory: factory)
+    stream = World::SnapshotStream.new(message_dispatcher: dispatcher, snapshot_factory: factory, logger: Logger.new(IO::NULL))
 
     yield stream
 
