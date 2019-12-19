@@ -11,8 +11,8 @@ class StreamStartingTest < MiniTest::Test
     stream = mock
     stream.expects(:attach).with(101, :conn)
 
-    handler = Handler::World.new(snapshot_stream: stream)
-    response = handler.start_stream(msg, {player: player})
+    handler = Handler::Snapshot.new(snapshot_stream: stream)
+    response = handler.start(msg, {player: player})
 
     assert_equal(RPC::Code::OK, response.code)
   end

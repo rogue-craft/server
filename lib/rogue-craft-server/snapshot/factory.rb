@@ -1,4 +1,4 @@
-class World::SnapshotFactory
+class Snapshot::Factory
 
   def create(player_id)
     {

@@ -10,7 +10,7 @@ class RouteMap
   USERNAME_PARAMS = {min_size?: 5, max_size?: 15, format?: FORMAT_USERNAME}
   PW_PARAMS = {min_size?: 5, max_size?: 30, format?: FORMAT_PW}
 
-  include Dependency[:auth_handler, :meta_handler, :world_handler]
+  include Dependency[:auth_handler, :meta_handler, :snapshot_handler]
 
   def load
     {
@@ -23,10 +23,10 @@ class RouteMap
           logout: Schema::Auth::Logout.new
         }
       },
-      world: {
-        handler: @world_handler,
+      snapshot: {
+        handler: @snapshot_handler,
         schema: {
-          start_stream: Schema::World::StartStream.new
+          start: Schema::Snapshot::Start.new
         }
       },
       meta: {

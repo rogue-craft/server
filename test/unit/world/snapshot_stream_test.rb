@@ -39,14 +39,14 @@ class SnapshotStreamTest < MiniTest::Test
 
     dispatcher = mock
     dispatcher.expects(:dispatch).times(ids.count).yields.with do |msg, conn|
-      assert_equal('world/snapshot_stream', msg.target)
+      assert_equal('snapshot/stream', msg.target)
       assert_equal("conn_#{sequence}".to_sym, conn)
       assert_equal({snapshot: sequence}, msg.params)
 
       sequence += 1
     end
 
-    stream = World::SnapshotStream.new(message_dispatcher: dispatcher, snapshot_factory: factory, logger: Logger.new(IO::NULL))
+    stream = Snapshot::Stream.new(message_dispatcher: dispatcher, snapshot_factory: factory, logger: Logger.new(IO::NULL))
 
     yield stream
 

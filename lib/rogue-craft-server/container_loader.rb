@@ -37,7 +37,7 @@ require_relative './handler/handler'
 require_relative './model/model'
 require_relative './event/event'
 require_relative './schema/schema'
-require_relative './world/world'
+require_relative './snapshot/snapshot'
 require_relative './job/job'
 require_relative './route_map'
 
@@ -61,8 +61,8 @@ class ContainerLoader
 
     Ohm.redis = redic
 
-    c[:snapshot_stream] = -> { World::SnapshotStream.new }
-    c[:snapshot_factory] = -> { World::SnapshotFactory.new }
+    c[:snapshot_stream] = -> { Snapshot::Stream.new }
+    c[:snapshot_factory] = -> { Snapshot::Factory.new }
 
     c
   end
@@ -81,7 +81,7 @@ class ContainerLoader
     c[:async_store] = -> { RPC::AsyncStore.new(ENV['RESPONSE_TIMEOUT'], c[:logger]) }
     c[:auth_handler] = -> { Handler::Auth.new }
     c[:meta_handler] = -> { Handler::Meta.new }
-    c[:world_handler] = -> { Handler::World.new }
+    c[:snapshot_handler] = -> { Handler::Snapshot.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], nil) }
   end
 

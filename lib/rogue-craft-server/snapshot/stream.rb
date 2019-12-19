@@ -1,4 +1,4 @@
-class World::SnapshotStream < RPC::InjectedHandler
+class Snapshot::Stream < RPC::InjectedHandler
 
   include Dependency[:snapshot_factory, :logger]
 
@@ -37,7 +37,7 @@ class World::SnapshotStream < RPC::InjectedHandler
 
       send_msg(
         conn: conn,
-        target: 'world/snapshot_stream',
+        target: 'snapshot/stream',
         params: @snapshot_factory.create(player_id)
       )
     end

@@ -1,8 +1,8 @@
-class Handler::World < RPC::InjectedHandler
+class Handler::Snapshot < RPC::InjectedHandler
 
   include Dependency[:snapshot_stream]
 
-  def start_stream(msg, ctx)
+  def start(msg, ctx)
     @snapshot_stream.attach(ctx[:player].id, msg.source)
 
     new_msg(parent: msg)
