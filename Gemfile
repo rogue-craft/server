@@ -25,8 +25,6 @@ gem  "mail", "~> 2.7"
 
 gem  "resque", "~> 2.0"
 
-gem  "padrino", "~> 0.14"
-
 gem  "rake", "~> 12.0", group: :test
 gem  "minitest", "~> 5.11", group: :test
 gem  "mocha", "~> 1.8", group: :test
