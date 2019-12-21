@@ -4,17 +4,21 @@ class Snapshot::Factory
     {
       player: {
         x: 100,
-        y: 87,
-        type: :player
+        y: 100,
+        type: :player,
+        movement: {
+          direction: Interpolation::Direction::SOUTH,
+          speed: 0.001
+        }
       },
       entities: [
         {
           x: 100,
-          y: 88,
+          y: 100,
           type: :tree
         }
       ],
-      timestamp: Time.now.to_f * 1000
+      timestamp: Time.now_ms - 2000
     }
   end
 end

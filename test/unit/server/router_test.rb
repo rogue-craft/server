@@ -3,7 +3,7 @@ require_relative '../test'
 class RouterTest < MiniTest::Test
 
   class TestHandler
-    def login(message, player)
+    def login(_message, _ctx)
       RPC::Message.from(code: RPC::Code::OK)
     end
   end
