@@ -6,6 +6,5 @@ WORKDIR /app
 COPY Gemfile /app/
 
 RUN gem install bundler
-RUN bundle install --with test
 
 COPY . /app
