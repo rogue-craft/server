@@ -1,1 +1,6 @@
-script: make test-docker-ruby-2.6
+jobs:
+  include:
+    - stage: ruby 2.6
+      script: make test-docker-ruby-2.6
+    - stage: ruby 2.7
+      script: make test-docker-ruby-2.7
