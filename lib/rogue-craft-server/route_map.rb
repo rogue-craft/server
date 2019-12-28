@@ -29,6 +29,12 @@ class RouteMap
           start: Schema::Snapshot::Start.new
         }
       },
+      command: {
+        handler: @command_handler,
+        schema: {
+          execute: Schema::Command::Execute.new
+        }
+      },
       meta: {
         handler: @meta_handler,
         schema: {

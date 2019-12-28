@@ -20,7 +20,7 @@ class Snapshot::Stream < RPC::InjectedHandler
   end
 
   def detach_connection(removed)
-    @connection_map.delete_if do |player_id, conn|
+    @connection_map.reject! do |player_id, conn|
       matches = conn == removed
 
       if matches
