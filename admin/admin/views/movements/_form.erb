@@ -1,0 +1,33 @@
+<% error = @movement.errors.key?(:speed) && @movement.errors[:speed].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :speed, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :speed, :class => 'form-control input-xlarge input-with-feedback', :autofocus => true %>
+    <span class='help-inline'><%= error ? f.error_message_on(:speed) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @movement.errors.key?(:x) && @movement.errors[:x].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :x, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :x, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:x) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @movement.errors.key?(:y) && @movement.errors[:y].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :y, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :y, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:y) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+
+
+<div class="form-actions">
+  <%= f.submit pat(:save), :class => 'btn btn-primary' %>
+  &nbsp;
+  <%= f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue' %>
+  &nbsp;
+  <%= link_to pat(:cancel), url(:movements, :index), :class => 'btn btn-default' %>
+</div>

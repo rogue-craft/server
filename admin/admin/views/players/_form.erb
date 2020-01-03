@@ -46,22 +46,6 @@
     <span class='help-inline'><%= error ? f.error_message_on(:activation_code) : "Ex: a simple text" %></span>
   </div>
 </fieldset>
-<% error = @player.errors.key?(:password) && @player.errors[:password].count > 0 %>
-<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
-  <%= f.label :password, :class => 'control-label' %>
-  <div class='controls'>
-    <%= f.text_field :password, :class => 'form-control input-xlarge input-with-feedback' %>
-    <span class='help-inline'><%= error ? f.error_message_on(:password) : "Ex: a simple text" %></span>
-  </div>
-</fieldset>
-<% error = @player.errors.key?(:salt) && @player.errors[:salt].count > 0 %>
-<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
-  <%= f.label :salt, :class => 'control-label' %>
-  <div class='controls'>
-    <%= f.text_field :salt, :class => 'form-control input-xlarge input-with-feedback' %>
-    <span class='help-inline'><%= error ? f.error_message_on(:salt) : "Ex: a simple text" %></span>
-  </div>
-</fieldset>
 
 
 <div class="form-actions">
