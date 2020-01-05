@@ -1,6 +1,6 @@
 ---
-install: skip
-language: minimal
+# install: skip
+# language: minimal
 
 jobs:
   include:
