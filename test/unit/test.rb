@@ -1,6 +1,7 @@
-if ENV['GENERATE_COVERAGE']
-  require 'simplecov'
-  SimpleCov.start
+if 1 || ENV['GENERATE_COVERAGE']
+  require 'coveralls'
+
+  Coveralls.wear!
 end
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)

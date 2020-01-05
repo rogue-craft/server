@@ -84,7 +84,7 @@ class ContainerLoader
   end
 
   def self.register_ecs(c)
-    c[:ecs_systems] = -> do
+    c[:ecs_systems] = lambda do
       [
         ECS::System::Movement.new
       ]
@@ -106,7 +106,7 @@ class ContainerLoader
   end
 
   def self.load_command_executors(c)
-    c[:command_executors] = -> do
+    c[:command_executors] = lambda do
       {
         direction_change: Command::Executor::DirectionChange.new
       }

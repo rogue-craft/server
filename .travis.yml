@@ -8,6 +8,3 @@ jobs:
       script: make test-docker-ruby-2.6
     - stage: ruby 2.7
       script: make test-docker-ruby-2.7
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash -s coverage)
