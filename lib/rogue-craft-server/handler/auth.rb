@@ -2,7 +2,7 @@ class Handler::Auth < RPC::InjectedHandler
 
   ACTIVATION_CODE_LENGTH = 10
 
-  include Dependency[:token_lifetime, :logger]
+  include Dependency[:token_lifetime, :logger, :event]
 
   def registration(msg, _)
     salt = SecureRandom.hex(20)
@@ -44,11 +44,16 @@ class Handler::Auth < RPC::InjectedHandler
       player.save
     end
 
+    @logger.debug("Player #{player.id} logged in")
+
     new_msg(parent: msg, params: {token: player.token})
   end
 
   def logout(msg, player)
     player.update(token: nil)
+    @event.publish(:player_logout, {player: player, connection: msg.source})
+
+    @logger.debug("Player #{player.id} logged out")
 
     new_msg(parent: msg)
   end

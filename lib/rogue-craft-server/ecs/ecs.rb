@@ -1,4 +1,5 @@
-module Event end
-module Event::Listener end
+module ECS end
+module ECS::Component end
+module ECS::System end
 
 Dir[File.dirname(__FILE__) + "/**/*.rb"].each { |f| require f unless __FILE__ == f }

@@ -1,5 +1,7 @@
 class Model::Player < Model::BaseModel
+
   include Ohm::SoftDelete
+  include Ohm::Timestamps
 
   attribute :nickname
   unique :nickname
@@ -17,6 +19,8 @@ class Model::Player < Model::BaseModel
 
   attribute :password
   attribute :salt
+
+  attribute :movement_id
 
   def token_expired?
     Time.now >= token_expiration

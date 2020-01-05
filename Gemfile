@@ -25,6 +25,8 @@ gem  "mail", "~> 2.7"
 
 gem  "resque", "~> 2.0"
 
+gem 'perlin', "0.2.2"
+
 gem  "rake", "~> 12.0", group: :test
 gem  "minitest", "~> 5.11", group: :test
 gem  "mocha", "~> 1.8", group: :test

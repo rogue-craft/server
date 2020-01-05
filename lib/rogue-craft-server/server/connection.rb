@@ -9,17 +9,29 @@ class Server::Connection < EventMachine::Connection
   def ssl_handshake_completed
     p "Hello"
 
-    port, ip = Socket.unpack_sockaddr_in(get_peername)
+    p address
+  end
 
-    p port, ip
+  def address
+    Socket.unpack_sockaddr_in(get_peername)
   end
 
   def unbind
     p "unbind"
 
-    @snapshot_stream.detach_connection(self)
+    unless @closed_by_server
+      @event.publish(:player_unbind, {connection: self})
+    end
 
     super
+  end
+
+  def close_by_server
+    p "closed by server"
+
+    @closed_by_server = true
+
+    close_connection
   end
 
   def receive_data(raw)

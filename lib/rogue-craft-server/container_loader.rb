@@ -7,6 +7,7 @@ require 'dotenv'
 require 'bcrypt'
 require 'resque'
 require 'concurrent-ruby'
+require 'perlin'
 
 Dotenv.load
 
@@ -39,6 +40,9 @@ require_relative './event/event'
 require_relative './schema/schema'
 require_relative './snapshot/snapshot'
 require_relative './job/job'
+require_relative './command/command'
+require_relative './location/location'
+require_relative './ecs/ecs'
 require_relative './route_map'
 
 
@@ -61,8 +65,13 @@ class ContainerLoader
 
     Ohm.redis = redic
 
+    c[:connection_map] = -> { Server::ConnectionMap.new }
     c[:snapshot_stream] = -> { Snapshot::Stream.new }
     c[:snapshot_factory] = -> { Snapshot::Factory.new }
+
+    register_ecs(c)
+
+    c[:event].subscribe_listeners
 
     c
   end
@@ -74,6 +83,15 @@ class ContainerLoader
     logger
   end
 
+  def self.register_ecs(c)
+    c[:ecs_systems] = -> do
+      [
+        ECS::System::Movement.new
+      ]
+    end
+    c[:world] = -> { ECS::World.new }
+  end
+
   def self.register_rpc(c)
     c[:firewall] = -> { Server::FireWall.new([Handler::Auth], 60, 3600 )}
     c[:router] = -> { Server::Router.new(RouteMap.new.load, c[:logger], c[:firewall]) }
@@ -82,7 +100,17 @@ class ContainerLoader
     c[:auth_handler] = -> { Handler::Auth.new }
     c[:meta_handler] = -> { Handler::Meta.new }
     c[:snapshot_handler] = -> { Handler::Snapshot.new }
+    load_command_executors(c)
+    c[:command_handler] = -> { Handler::Command.new }
     c[:message_dispatcher] = -> { RPC::MessageDispatcher.new(c[:serializer], c[:async_store], nil) }
+  end
+
+  def self.load_command_executors(c)
+    c[:command_executors] = -> do
+      {
+        direction_change: Command::Executor::DirectionChange.new
+      }
+    end
   end
 
   def self.init_mailer

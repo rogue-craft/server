@@ -8,7 +8,7 @@ class LoginTest < MiniTest::Test
 
     Model::Player.expects(:with).with(:nickname, msg[:nickname]).returns(nil)
 
-    handler = Handler::Auth.new
+    handler = new_handler
     response = handler.login(msg, nil)
 
     assert_equal(RPC::Code::ACCESS_DENIED, response.code)
@@ -21,7 +21,7 @@ class LoginTest < MiniTest::Test
 
     Model::Player.expects(:with).with(:nickname, msg[:nickname]).returns(player)
 
-    handler = Handler::Auth.new
+    handler = new_handler
     response = handler.login(msg, nil)
 
     assert_equal(RPC::Code::ACCESS_DENIED, response.code)
@@ -35,7 +35,7 @@ class LoginTest < MiniTest::Test
 
     Model::Player.expects(:with).with(:nickname, msg[:nickname]).returns(player)
 
-    handler = Handler::Auth.new
+    handler = new_handler
     response = handler.login(msg, nil)
 
     assert_equal(RPC::Code::ACCESS_DENIED, response.code)
@@ -50,6 +50,7 @@ class LoginTest < MiniTest::Test
     Time.expects(:new).returns(10)
 
     player = mock
+    player.expects(:id).returns(123)
     player.expects(:activation_code).returns(nil)
     player.expects(:salt).returns('salt')
     player.expects(:password).returns(BCrypt::Password.create('saltpw01'))
@@ -62,10 +63,15 @@ class LoginTest < MiniTest::Test
 
     Model::Player.expects(:with).with(:nickname, msg[:nickname]).returns(player)
 
-    handler = Handler::Auth.new(token_lifetime: 100)
+    handler = new_handler(token_lifetime: 100)
     response = handler.login(msg, nil)
 
     assert_equal(RPC::Code::OK, response.code)
     assert_equal(msg.id, response.parent)
+  end
+
+  private
+  def new_handler(token_lifetime: nil)
+    Handler::Auth.new(token_lifetime: token_lifetime, logger: Logger.new(IO::NULL))
   end
 end

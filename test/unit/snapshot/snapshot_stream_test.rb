@@ -3,32 +3,14 @@ require_relative '../test'
 class SnapshotStreamTest < MiniTest::Test
 
   def test_stream
-    run_test([1, 2]) do |stream|
-      stream.attach(1, :conn_1)
-      stream.attach(2, :conn_2)
-    end
-  end
+    conn_1 = mock
+    conn_2 = mock
 
-  def test_detach_player_id
-    run_test([2]) do |stream|
-      stream.attach(1, :conn_1)
-      stream.attach(2, :conn_2)
-
-      stream.detach_player(1)
-    end
-  end
-
-  def test_detach_connection
-    run_test([1]) do |stream|
-      stream.attach(1, :conn_1)
-      stream.attach(2, :conn_2)
-
-      stream.detach_connection(:conn_2)
-    end
+    run_test([1, 2], {1 => conn_1, 2 => conn_2})
   end
 
   private
-  def run_test(ids)
+  def run_test(ids, connections)
     factory = mock
 
     ids.each do |id|
@@ -40,15 +22,15 @@ class SnapshotStreamTest < MiniTest::Test
     dispatcher = mock
     dispatcher.expects(:dispatch).times(ids.count).with do |msg, conn|
       assert_equal('snapshot/stream', msg.target)
-      assert_equal("conn_#{sequence}".to_sym, conn)
+      assert_equal(connections[sequence], conn)
       assert_equal({snapshot: sequence}, msg.params)
 
       sequence += 1
     end
 
-    stream = Snapshot::Stream.new(message_dispatcher: dispatcher, snapshot_factory: factory, logger: Logger.new(IO::NULL))
+    connection_map = connections.invert
 
-    yield stream
+    stream = Snapshot::Stream.new(message_dispatcher: dispatcher, connection_map: connection_map, snapshot_factory: factory, logger: Logger.new(IO::NULL))
 
     stream.stream
   end
