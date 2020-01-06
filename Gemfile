@@ -31,5 +31,5 @@ gem  "rake", "~> 12.0", group: :test
 gem  "minitest", "~> 5.11", group: :test
 gem  "mocha", "~> 1.8", group: :test
 
-
-gem 'coveralls', require: false
+gem  "codecov", "~> 0.1.16", group: :test
+gem  "simplecov", "~> 0.17", group: :test
