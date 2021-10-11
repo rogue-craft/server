@@ -1,6 +1,12 @@
 class Server::Connection < EventMachine::Connection
 
-  include Dependency[:event, :private_key, :cert_chain, :snapshot_stream]
+  # include Dependency.hash[:event, :private_key, :cert_chain, :snapshot_stream]
+
+  def initialize(event, private_key, cert_chain)
+    @event = event
+    @private_key = private_key
+    @cert_chain = cert_chain
+  end
 
   def post_init
     start_tls(private_key_file: @private_key, cert_chain_file: @cert_chain)
@@ -9,6 +15,7 @@ class Server::Connection < EventMachine::Connection
   def ssl_handshake_completed
     p "Hello"
 
+    p @private_key
     p address
   end
 

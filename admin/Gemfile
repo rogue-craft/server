@@ -27,7 +27,7 @@ gem "ohm-validations"
 # Test requirements
 
 # Padrino Stable Gem
-gem 'padrino', '0.14.4'
+gem 'padrino', '0.15'
 gem  "dotenv", "~> 2.6"
 
 # Or Padrino Edge

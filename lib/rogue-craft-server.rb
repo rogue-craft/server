@@ -8,7 +8,7 @@ module RogueCraftServer
     world = container[:world]
 
     EventMachine.run do
-      EventMachine.start_server('127.0.0.1', ENV['PORT'].to_i, Server::Connection)
+      EventMachine.start_server('127.0.0.1', ENV['PORT'].to_i, Server::Connection, container[:event], container[:private_key], container[:cert_chain])
 
       EventMachine.add_periodic_timer(0.1) do
         EventMachine.defer { snapshot.stream }

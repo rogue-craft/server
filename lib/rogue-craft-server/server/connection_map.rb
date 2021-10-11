@@ -2,7 +2,7 @@ class Server::ConnectionMap
 
   include Dependency[:logger]
 
-  def initialize(args)
+  def initialize(**args)
     super
 
     @map = Concurrent::Map.new

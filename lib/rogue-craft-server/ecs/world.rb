@@ -2,7 +2,7 @@ class ECS::World
 
   include Dependency[:ecs_systems, :logger]
 
-  def initialize(args)
+  def initialize(**args)
     super
     @player_entities = Concurrent::Map.new
   end

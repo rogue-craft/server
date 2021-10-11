@@ -6,14 +6,14 @@ source "https://rubygems.org"
 
 gem 'rogue-craft-common', "0.1.0", git: 'https://github.com/rogue-craft/common'
 
-gem  "dry-container", "~> 0.7.0"
-gem  "dry-auto_inject", "~> 0.6.0"
-gem  "dry-events", "~> 0.1.0"
+gem  "dry-container", "~> 0.9.0"
+gem  "dry-auto_inject", "~> 0.8.0"
+gem  "dry-events", "~> 0.3.0"
 
-gem  "eventmachine", "~> 1.2"
+gem  "eventmachine"
 gem  "dotenv", "~> 2.6"
 
-gem "concurrent-ruby", "~> 1.1.5"
+gem "concurrent-ruby", "~> 1.1"
 
 gem  "ohm", "~> 3.1.1"
 gem  "ohm-contrib", "~> 3"
@@ -28,8 +28,8 @@ gem  "resque", "~> 2.0"
 gem 'perlin', "0.2.2"
 
 gem  "rake", "~> 12.0", group: :test
-gem  "minitest", "~> 5.11", group: :test
-gem  "mocha", "~> 1.8", group: :test
+gem  "minitest"
+gem  "mocha"
 
-gem  "codecov", "~> 0.1.16", group: :test
-gem  "simplecov", "~> 0.17", group: :test
+gem  "codecov", "~> 0.6", group: :test
+gem  "simplecov", "~> 0.21", group: :test

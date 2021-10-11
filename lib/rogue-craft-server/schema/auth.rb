@@ -6,9 +6,9 @@ module Schema::Auth
     PW_PARAMS = {min_size?: 5, max_size?: 30, format?: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W]).{8,}$/}
 
     params do
-      required(:nickname).value(USERNAME_PARAMS)
-      required(:password).value(PW_PARAMS)
-      required(:password_confirmation).value(PW_PARAMS)
+      required(:nickname).value(**USERNAME_PARAMS)
+      required(:password).value(**PW_PARAMS)
+      required(:password_confirmation).value(**PW_PARAMS)
       required(:email).value(format?: FORMAT_EMAIL)
     end
 

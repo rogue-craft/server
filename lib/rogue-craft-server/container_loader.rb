@@ -13,8 +13,8 @@ Dotenv.load
 
 class Container < Dry::Container
   def register(name, val, opts = {}, &block)
-    opts.merge!(memoize: true)
-    super
+    opts.merge!(memoize: true, call: true)
+    super(name, val, **opts, &block)
   end
 
   def []=(name, val)
