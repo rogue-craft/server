@@ -27,13 +27,15 @@ gem "ohm-validations"
 # Test requirements
 
 # Padrino Stable Gem
-gem 'padrino', '0.15'
+# gem 'padrino', '0.15'
 gem  "dotenv", "~> 2.6"
 
 # Or Padrino Edge
-# gem 'padrino', :github => 'padrino/padrino-framework'
+gem 'padrino', :github => 'padrino/padrino-framework'
 
 # Or Individual Gems
 # %w(core support gen helpers cache mailer admin).each do |g|
 #   gem 'padrino-' + g, '0.14.4'
 # end
+
+gem 'webrick'
