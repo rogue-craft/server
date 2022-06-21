@@ -1,0 +1,31 @@
+version: '3.0'
+
+services:
+  server:
+    build:
+      context: ../
+      dockerfile: docker/server/Dockerfile
+    ports:
+      - 3344:3344
+    volumes:
+      - ../:/srv
+      - redis_run:/run/redis
+    environment:
+      REDIS_URL: unix:///run/redis/redis.sock
+      PORT: 3344
+    depends_on:
+      - redis
+
+  redis:
+    build: redis
+    restart: always
+    command: redis-server /redis.conf
+    volumes:
+      - redis_db:/data
+      - redis_run:/run/redis
+
+volumes:
+  redis_db:
+    driver: local
+  redis_run:
+    driver: local

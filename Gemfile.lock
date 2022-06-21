@@ -13,6 +13,7 @@ GEM
     codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
     concurrent-ruby (1.1.9)
+    digest (3.1.0)
     docile (1.4.0)
     dotenv (2.7.6)
     dry-auto_inject (0.8.0)
@@ -54,6 +55,7 @@ GEM
       dry-schema (~> 1.8, >= 1.8.0)
     eventmachine (1.2.7)
     hiredis (0.6.3)
+    io-wait (0.2.1)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     mini_mime (1.1.2)
@@ -66,6 +68,13 @@ GEM
       ruby2_keywords (~> 0.0.1)
     nest (3.2.0)
       redic
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    net-smtp (0.3.1)
+      digest
+      net-protocol
+      timeout
     ohm (3.1.1)
       nest (~> 3)
       redic (~> 1.5.0)
@@ -107,6 +116,7 @@ GEM
     stal (0.3.0)
       redic (~> 1.5)
     tilt (2.0.10)
+    timeout (0.2.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
 
@@ -125,6 +135,7 @@ DEPENDENCIES
   mail (~> 2.7)
   minitest
   mocha
+  net-smtp
   ohm (~> 3.1.1)
   ohm-contrib (~> 3)
   ohm-validations (~> 1.0)

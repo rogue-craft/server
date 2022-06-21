@@ -21,6 +21,7 @@ gem  "ohm-validations", "~> 1.0"
 
 gem  "bcrypt", "~> 3"
 
+gem 'net-smtp', require: false
 gem  "mail", "~> 2.7"
 
 gem  "resque", "~> 2.0"
