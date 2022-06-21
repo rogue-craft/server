@@ -77,7 +77,7 @@ class ContainerLoader
   end
 
   def self.logger
-    logger = Logger.new(STDOUT)
+    logger = Logger.new(ENV['LOG_FILE'])
     logger.level = Logger.const_get(ENV['LOG_LEVEL'].upcase)
 
     logger

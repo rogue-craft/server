@@ -1,9 +1,6 @@
 class Account < Ohm::Model
   attr_accessor :password, :password_confirmation
 
-  include Ohm::Validations
-  include Ohm::Callbacks
-
   # Keys
   attribute :name
   attribute :surname
@@ -29,7 +26,7 @@ class Account < Ohm::Model
   end
 
   # Callbacks
-  def before_save
+  def save!
     encrypt_password
     super
   end
@@ -52,10 +49,10 @@ class Account < Ohm::Model
   ##
   # This method is used by Admin Sessions Controller for login bypass.
   #
-  # def self.first
-  #   first_id = key[:all].sort(:order => "asc", :limit => [0,1]).first
-  #   self[first_id] if first_id
-  # end
+  def self.first
+    first_id = key[:all].sort(:order => "asc", :limit => [0,1]).first
+    self[first_id] if first_id
+  end
 
   def has_password?(password)
     ::BCrypt::Password.new(crypted_password) == password

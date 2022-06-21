@@ -5,14 +5,50 @@ services:
     build:
       context: ../
       dockerfile: docker/server/Dockerfile
+    restart: always
     ports:
       - 3344:3344
     volumes:
       - ../:/srv
       - redis_run:/run/redis
     environment:
-      REDIS_URL: unix:///run/redis/redis.sock
+      ENV: development
+      LOG_FILE: /dev/stdout
+      LOG_LEVEL: debug
+      HOST: 0.0.0.0
       PORT: 3344
+      REDIS_URL: unix:///run/redis/redis.sock
+    depends_on:
+      - redis
+
+  admin:
+    build:
+      context: ../
+      dockerfile: docker/admin/Dockerfile
+    restart: always
+    ports:
+      - 127.0.0.1:3000:3000
+    volumes:
+      - ../:/srv
+      - redis_run:/run/redis
+    environment:
+      ENV: development
+      REDIS_URL: unix:///run/redis/redis.sock
+    depends_on:
+      - redis
+
+  resque:
+    build:
+      context: ../
+      dockerfile: docker/resque/Dockerfile
+    restart: always
+    volumes:
+      - ../:/srv
+      - redis_run:/run/redis
+    environment:
+      QUEUE: '*'
+      COUNT: 1
+      REDIS_URL: unix:///run/redis/redis.sock
     depends_on:
       - redis
 
@@ -21,11 +57,8 @@ services:
     restart: always
     command: redis-server /redis.conf
     volumes:
-      - redis_db:/data
       - redis_run:/run/redis
 
 volumes:
-  redis_db:
-    driver: local
   redis_run:
     driver: local

@@ -8,9 +8,9 @@ Admin::Admin.controllers :sessions do
       set_current_account(account)
       redirect url(:base, :index)
     elsif Padrino.env == :development && params[:bypass]
-      # account = Account.first
-      # set_current_account(account)
-      # redirect url(:base, :index)
+      account = Account.first
+      set_current_account(account)
+      redirect url(:base, :index)
     else
       params[:email] = h(params[:email])
       flash.now[:error] = pat('login.error')

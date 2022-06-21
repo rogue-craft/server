@@ -35,8 +35,6 @@ module Admin
     end
 
     access_control.roles_for :admin do |role|
-      role.project_module :movements, '/movements'
-      role.project_module :players, '/players'
       role.project_module :accounts, '/accounts'
     end
 
