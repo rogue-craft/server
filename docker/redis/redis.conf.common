@@ -12,4 +12,3 @@ unixsocketperm 770
 
 dbfilename dump.rdb
 dir /data
-save 10 1
