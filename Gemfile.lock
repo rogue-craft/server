@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rogue-craft/common
-  revision: 209aa90b83aa73e2bb321fb9820dfbb229be5eb5
+  revision: a84c5431aa85998e840fc4b5e088b577c05f7c1a
   specs:
     rogue-craft-common (0.1.0)
       dry-validation (~> 1.7)
@@ -91,7 +91,7 @@ GEM
     rake (12.3.3)
     redic (1.5.3)
       hiredis
-    redis (4.4.0)
+    redis (4.5.1)
     redis-namespace (1.8.1)
       redis (>= 3.0.4)
     resque (2.1.0)

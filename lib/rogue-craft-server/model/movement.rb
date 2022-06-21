@@ -1,8 +1,11 @@
 class Model::Movement < Model::BaseModel
-
   attribute :speed, Type::Float
+
   attribute :x, Type::Float
   attribute :y, Type::Float
+  attribute :hitbox_x, Type::Float
+  attribute :hitbox_y, Type::Float
+
   attribute :updated_at, Type::Float
 
   def save
