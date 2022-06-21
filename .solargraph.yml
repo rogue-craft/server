@@ -1,0 +1,10 @@
+---
+include:
+  - "**/*.rb"
+require:
+  - 'rogue-craft-common'
+domains: []
+reporters:
+  - rubocop
+  - require_not_found
+max_files: 5000

@@ -1,3 +1,6 @@
+# @!attribute [r] movement
+#   @return [Model::Movement]
+#
 class Model::Player < Model::BaseModel
 
   include Ohm::SoftDelete
@@ -20,7 +23,7 @@ class Model::Player < Model::BaseModel
   attribute :password
   attribute :salt
 
-  attribute :movement_id
+  reference :movement, 'Model::Movement'
 
   def token_expired?
     Time.now >= token_expiration

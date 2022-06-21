@@ -93,6 +93,7 @@ class ContainerLoader
   end
 
   def self.register_rpc(c)
+    c[:clock] = -> { Interpolation::Clock.new(Time.new) }
     c[:firewall] = -> { Server::FireWall.new([Handler::Auth], 60, 3600 )}
     c[:router] = -> { Server::Router.new(RouteMap.new.load, c[:logger], c[:firewall]) }
     c[:serializer] = -> { RPC::Serializer.new(c.resolve(:logger)) }
