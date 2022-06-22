@@ -56,10 +56,11 @@ class ContainerLoader
 
     c[:token_lifetime] = -> { 3600 }
     c[:event] = -> { Event::Publisher.new }
-    c[:private_key] = -> { ENV['PRIVATE_KEY'] }
-    c[:cert_chain] = -> { ENV['CERT_CHAIN'] }
+    c[:private_key] = -> { ENV['SERVER_PRIVATE_KEY'] }
+    c[:cert_chain] = -> { ENV['SERVER_CERT_CHAIN'] }
 
     Resque.redis = ENV['REDIS_URL']
+    Resque.logger = c[:logger]
     redic = Redic.new(ENV['REDIS_URL'])
     redic.call('INFO')
 
@@ -97,7 +98,7 @@ class ContainerLoader
     c[:firewall] = -> { Server::FireWall.new([Handler::Auth], 60, 3600 )}
     c[:router] = -> { Server::Router.new(RouteMap.new.load, c[:logger], c[:firewall]) }
     c[:serializer] = -> { RPC::Serializer.new(c.resolve(:logger)) }
-    c[:async_store] = -> { RPC::AsyncStore.new(ENV['RESPONSE_TIMEOUT'], c[:logger]) }
+    c[:async_store] = -> { RPC::AsyncStore.new(ENV['SERVER_RESPONSE_TIMEOUT'], c[:logger]) }
     c[:auth_handler] = -> { Handler::Auth.new }
     c[:meta_handler] = -> { Handler::Meta.new }
     c[:snapshot_handler] = -> { Handler::Snapshot.new }

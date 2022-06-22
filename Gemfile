@@ -30,7 +30,7 @@ gem 'perlin', '0.2.2'
 
 gem  'minitest'
 gem  'mocha'
-gem  'rake', '~> 12.0', group: :test
+gem  'rake', '~> 13.0'
 
 gem  'codecov', group: :test
 gem  'simplecov', group: :test

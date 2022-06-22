@@ -36,12 +36,17 @@
             </ul>
           </div>
         </th>
-                <th class=header> <%= mat(:player, :id) %></th>
                 <th class=header> <%= mat(:player, :deleted) %></th>
+                <th class=header> <%= mat(:player, :created_at) %></th>
+                <th class=header> <%= mat(:player, :updated_at) %></th>
                 <th class=header> <%= mat(:player, :nickname) %></th>
                 <th class=header> <%= mat(:player, :email) %></th>
+                <th class=header> <%= mat(:player, :token) %></th>
                 <th class=header> <%= mat(:player, :token_expiration) %></th>
                 <th class=header> <%= mat(:player, :activation_code) %></th>
+                <th class=header> <%= mat(:player, :password) %></th>
+                <th class=header> <%= mat(:player, :salt) %></th>
+                <th class=header> <%= mat(:player, :movement_id) %></th>
                 <th class="header list-row-action-header"></th>
       </tr>
     </thead>
@@ -52,12 +57,17 @@
           <td class="list-column list-selectable">
             <%= check_box_tag 'player_ids[]', :value => player.id, :class => 'list-selectable-checkbox' %>
            </td>
-          <td class=list-column> <%= player.id %> </td>
           <td class=list-column> <%= player.deleted %> </td>
+          <td class=list-column> <%= time_ago_in_words player.created_at %></td>
+          <td class=list-column> <%= time_ago_in_words player.updated_at %></td>
           <td class=list-column> <%= player.nickname %> </td>
           <td class=list-column> <%= player.email %> </td>
+          <td class=list-column> <%= player.token %> </td>
           <td class=list-column> <%= player.token_expiration %> </td>
           <td class=list-column> <%= player.activation_code %> </td>
+          <td class=list-column> <%= player.password %> </td>
+          <td class=list-column> <%= player.salt %> </td>
+          <td class=list-column> <%= player.movement_id %> </td>
           <td class="list-column list-row-action">
             <div class='list-row-action-wrapper'>
                <%= link_to tag_icon(:edit), :href => url(:players, :edit, :id => player.id), :rel => :tooltip, :title => "#{pat(:edit)} player", :class => 'list-row-action-wrapper-link' %>

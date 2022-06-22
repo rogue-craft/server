@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $ENV = "development" ];
+if [ $SERVER_ENV = "development" ];
 then
     gem install rerun
 

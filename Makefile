@@ -1,11 +1,27 @@
-CI_ENV=$(shell curl -s https://codecov.io/env | bash)
+COMPOSE = docker-compose -p rogue-craft-server -f docker/docker-compose.yml
 
-test-docker-ruby-2.6:
-	docker build -f test/unit/docker/ruby-2.6/Dockerfile -t rogue-craft-server-ruby-2.6 . \
-	&& docker run ${CI_ENV} --rm -v $(realpath ./coverage):/app/coverage rogue-craft-server-ruby-2.6 \
-	/bin/sh -c "bundle && GENERATE_COVERAGE=1 bundle exec rake test"
+up:
+	$(COMPOSE) up --build
 
-test-docker-ruby-2.7:
-	docker build -f test/unit/docker/ruby-2.7/Dockerfile -t rogue-craft-server-ruby-2.7 . \
-	&& docker run ${CI_ENV} --rm -v $(realpath ./coverage):/app/coverage rogue-craft-server-ruby-2.7 \
-	/bin/sh -c "bundle && GENERATE_COVERAGE=1 bundle exec rake test"
+stop:
+	$(COMPOSE) stop
+
+rebuild:
+	$(COMPOSE) rm
+	$(COMPOSE) up
+
+# make enter redis
+enter:
+	$(COMPOSE) exec $(filter-out $@,$(MAKECMDGOALS)) /bin/bash
+
+# This will create an Account that is able to login to the Admin
+#
+admin-user:
+	$(COMPOSE) exec admin /bin/bash -c "cd admin && rake db:seed"
+
+# Generate an Admin CRUD for the given model
+#
+# make admin-page Model::Player
+#
+admin-page:
+	$(COMPOSE) exec admin /bin/bash -c "cd admin && bundle exec padrino g admin_page $(filter-out $@,$(MAKECMDGOALS))"

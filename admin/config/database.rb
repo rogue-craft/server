@@ -4,11 +4,17 @@
 #
 # You can, however, run multiple redis servers on the same host
 # and point to them based on the environment:
-#
+
+
+redic = Redic.new(ENV['REDIS_URL'])
+redic.call('INFO')
+
+Ohm.redis = redic
+
 # case Padrino.env
-#  when :development then Ohm.connect(:port => 6379)
-#  when :production then Ohm.connect(:port => 6380)
-#  when :test then Ohm.connect(:port => 6381)
+# when :development then Ohm.connect(:port => 6379)
+# when :production then Ohm.connect(:port => 6380)
+# when :test then Ohm.connect(:port => 6381)
 # end
 
 # Alternatively, you can try specifying a difference :db

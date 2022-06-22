@@ -9,6 +9,7 @@ Bundler.require(:default, RACK_ENV)
 require_relative '../../lib/rogue-craft-server/model/model.rb'
 
 require 'dotenv'
+require 'logger'
 
 Dotenv.load
 
@@ -49,6 +50,12 @@ Dotenv.load
 # Dependencies from 'config' folder are NOT re-required on reload.
 #
 Padrino.dependency_paths.unshift Padrino.root('config/initializers/*.rb')
+
+logger = Logger.new(ENV['LOG_FILE'])
+logger.extend(Padrino::Logger::Extensions)
+logger.level = Logger.const_get(ENV['LOG_LEVEL'].upcase)
+
+Padrino.logger = logger
 
 ##
 # Add your before (RE)load hooks here
