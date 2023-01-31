@@ -83,7 +83,7 @@ GEM
       ohm (~> 3.0, >= 2.0)
       scrivener (~> 1.0)
     perlin (0.2.2)
-    rack (2.2.4)
+    rack (2.2.6.2)
     rack-protection (3.0.4)
       rack
     rake (13.0.6)
