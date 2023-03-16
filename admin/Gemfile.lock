@@ -69,7 +69,7 @@ GEM
     ohm-validations (1.1.0)
       ohm (~> 3.0, >= 2.0)
       scrivener (~> 1.0)
-    rack (2.2.6.2)
+    rack (2.2.6.4)
     rack-protection (3.0.4)
       rack
     rake (13.0.6)
